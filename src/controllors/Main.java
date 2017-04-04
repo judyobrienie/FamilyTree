@@ -100,7 +100,7 @@ public class Main {
 					
 					
 					f.printChildren();
-					
+					System.out.println("\n\n\n\"=======================\n\n\n");
 					f.printSiblings();
 					
 					

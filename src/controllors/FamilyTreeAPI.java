@@ -145,7 +145,7 @@ public class FamilyTreeAPI  {
 			familytree.get(firstName).setMother(mothers);
 		}
 		else  {mum = new Person(mother);
-		familytree.get(mother).setMother(mum);
+		familytree.get(firstName).setMother(mum);
 		familytree.put(mother,  mum);
 		}
 		
@@ -155,7 +155,7 @@ public class FamilyTreeAPI  {
 			familytree.get(father).setFather(fathers);
 		}
 		else  {dad = new Person(father);
-		familytree.get(father).setFather(dad);
+		familytree.get(firstName).setFather(dad);
 		familytree.put(father, dad);
 		}
 		
@@ -219,7 +219,7 @@ public class FamilyTreeAPI  {
 		while (children.hasNext()) {
 			String key = children.next();
 			Person value = familytree.get(key);
-			System.out.println("Arraylist of Children for  " + value.name + " = " + value.getChildren().toString());
+			System.out.println("Children of  " + value.name + " = " + value.getChildren().toString());
 		}
 	}//end of printChildren
 	
@@ -233,6 +233,7 @@ public class FamilyTreeAPI  {
     		String key = iterator.next();
     		Person value = familytree.get(key);
     		Person mother = value.getMother();
+    		Person father = value.getFather();
     		if(mother != null){
 
     		Iterator<String> sibs= familytree.keySet().iterator();
@@ -249,7 +250,29 @@ public class FamilyTreeAPI  {
     				}// end of mother2!=null
     			}// end of !name.equal(value)
     			}// end of while
-    		}
+    		} // of if(mother != null){
+    		
+    		
+    		if(father != null){
+
+        		Iterator<String> sibs2= familytree.keySet().iterator();
+        			while (sibs2.hasNext()) {
+        				String name2 = sibs2.next();
+        				Person names2 = familytree.get(name2);
+        				if(!(names2.equals(value))){
+        				Person sibling2 = familytree.get(name2);
+        				Person father2 = sibling2.getFather();
+        				if(father2 != null){
+        					if(father2.equals(father)){
+        						value.siblings.add(sibling2);
+        					}
+        				}// end of father2!=null
+        			}// end of !name.equal(value)
+        			}// end of while
+        		} // of if(father != null){
+    		
+    		
+    		
     	}
 
     }// end of add Sibling
@@ -266,11 +289,11 @@ public class FamilyTreeAPI  {
 		while (siblings.hasNext()) {
 			String key = siblings.next();
 			Person value = familytree.get(key);
-			System.out.println("Hashset of Siblings for  " + value.name + " = " + value.getSiblings().toString());
+			System.out.println("Siblings of  " + value.name + " = " + value.getSiblings().toString());
 		}
 	}//end of printChildren
-	
 
+	
 	
 } //end of FamilyTreeApi
 
