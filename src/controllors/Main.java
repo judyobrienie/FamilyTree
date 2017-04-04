@@ -3,6 +3,7 @@ package controllors;
 
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -56,13 +57,7 @@ public class Main {
 				{
 				case 1:
 					
-					for(Map.Entry<String,Person> entry : f.familytree.entrySet()) {
-						  String key = entry.getKey();
-						  Person value = entry.getValue();
-
-						  System.out.println(key + " => " + value);
-						}
-				
+					f.allPersons();
 					
 					break;
 				case 2:
@@ -74,9 +69,39 @@ public class Main {
 					break;
 					
 				case 3:
+					System.out.println("Please enter First Name: ");
+					input.nextLine(); //swallow bug
+					String firstName = input.nextLine();
+					boolean goodInput1 = false;
+					int age = 0;
+					do {
+						try {
+							System.out.println("Please enter Year of Birth: ");
+							age = Integer.parseInt(input.nextLine());
+							goodInput1 = true;
+						}
+						catch (Exception e) {
+							System.err.println("Num Expected - you entered text");
+						}
+					} while (!goodInput1);	
+					System.out.println("Please enter Gender  M or F: ");
+					String gender = input.nextLine();
+					System.out.println("Please enter the Mother: ");
+					String mother = input.nextLine();
+					System.out.println("Please enter the Father: ");
+					String father = input.nextLine();
 					
+
+					f.addPerson(firstName, gender, age, mother, father);
+
+					break;
 				   
 				case 4:
+					
+					
+					f.printChildren();
+					
+					f.printSiblings();
 					
 					
 				  break;
@@ -122,7 +147,7 @@ private static  int mainMenu() {
 	System.out.println("\n1)Print out Tree");
 	System.out.println("2)Search for a Person");
 	System.out.println("3)Add a Person");
-    System.out.println("4)Delete a Person");
+    System.out.println("4)Print Children & Siblings");
 	
 
 

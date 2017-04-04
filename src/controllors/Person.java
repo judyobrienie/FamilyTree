@@ -1,5 +1,7 @@
 package controllors;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * @author Judy
@@ -13,6 +15,8 @@ public class Person implements Comparable<Person> {
 	public int dob;
 	public Person mother = null;
 	public Person father= null;
+	public HashSet<Person>children = new HashSet<Person>();
+	public HashSet<Person>siblings = new HashSet<Person>();
 
 	/** Constructor for object of class Item. 
 	 * @param Person Class
@@ -36,13 +40,6 @@ public class Person implements Comparable<Person> {
 
 	}
 
-	
-
-	@Override
-	public String toString() {
-		return name + ", " +  gender + ", " + dob + ", " + mother + ", " +father;
-	}
-
 	public Person(String name, String gender, int dob, Person mother, Person father)
 	{
 		this.name = name;
@@ -52,6 +49,41 @@ public class Person implements Comparable<Person> {
 		this.father = father;
 	}
 
+
+	@Override
+	public String toString() {
+		return name + ", " +  gender + ", " + dob ;
+		
+	}
+
+	
+
+	/**
+	 * Getters and Setters
+	 */
+
+
+	/**
+	 * @param Comparason of two items
+	  * @returns the item in decending order
+	  */ 
+	public HashSet<Person> getChildren() {
+		return children;
+	}
+
+	public void setChildren(HashSet<Person> children) {
+		this.children = children;
+	}
+
+	public HashSet<Person> getSiblings() {
+		return siblings;
+	}
+
+	public void setSiblings(HashSet<Person> siblings) {
+		this.siblings = siblings;
+	}
+
+	
 	
 	public int compareTo(Person person) {
 		return Integer.compare(this.dob, dob);
@@ -101,15 +133,6 @@ public class Person implements Comparable<Person> {
 		return null;
 	}
 
-	/**
-	 * Getters and Setters
-	 */
-
-
-	/**
-	 * @param Comparason of two items
-	  * @returns the item in decending order
-	  */ 
 
 
 	
