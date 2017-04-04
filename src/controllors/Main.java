@@ -46,6 +46,7 @@ public class Main {
 	System.out.println("-----------------");
 
 	boolean goodInput = false;
+	
 	do{
 		try{
 			int option = mainMenu();
@@ -105,6 +106,58 @@ public class Main {
 					
 					
 				  break;
+				  
+				case 5:
+					System.out.println("\n" + "Current List Of Persons");
+					System.out.println("=======================");
+					f.allPersons();
+					System.out.println("\n");
+					System.out.println("Choose a Person to Update" + "\n");
+					System.out.println("==>>");
+					input.nextLine(); //swallow bug
+					String firstName1 = input.nextLine();
+					
+
+					boolean goodInput3 = false;
+					int age1 = 0;
+					do {
+						try {
+							System.out.println("Please enter Year of Birth: ");
+							age1 = Integer.parseInt(input.nextLine());
+							goodInput3 = true;
+						}
+						catch (Exception e) {
+							System.err.println("Num Expected - you entered text");
+						}
+					} while (!goodInput3);	
+					
+					System.out.println("Please enter Gender  M or F: ");
+					String gender1 = input.nextLine();
+					
+					System.out.println("Please enter the Mother: ");
+					String mother1 = input.nextLine();
+					
+					System.out.println("Please enter the Father: ");
+					String father1 = input.nextLine();
+					
+					
+
+					f.updatePerson(firstName1, gender1, age1, mother1, father1);
+				
+				break;
+				
+				case 6:
+					
+					System.out.println("\n" + "Current List Of Persons");
+					System.out.println("=======================");
+					f.allPersons();
+					System.out.println("\n");
+					System.out.println("Choose a Person to Remove" + "\n");
+					System.out.println("==>>");
+					input.nextLine(); //swallow bug
+					String removeName = input.nextLine();
+					f.familytree.remove(removeName);
+					break;
 				    
 				default:    System.out.println("Invalid option entered: " + option);
 				mainMenu();
@@ -148,6 +201,8 @@ private static  int mainMenu() {
 	System.out.println("2)Search for a Person");
 	System.out.println("3)Add a Person");
     System.out.println("4)Print Children & Siblings");
+    System.out.println("5)Update a Person");
+    System.out.println("6)Remove a Person");
 	
 
 

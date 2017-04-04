@@ -167,6 +167,45 @@ public class FamilyTreeAPI  {
 	}
 	
 	
+	/**
+	 *@param addPerson Create a new instance of Person
+	 *@return an updated Hash Map of type Person
+	 */
+	
+public void updatePerson(String firstName,String gender, int age, String mother, String father) {
+		
+		familytree.get(firstName).setGender(gender);
+		familytree.get(firstName).setDob(age);  
+		
+		Person mum = null;
+		if (familytree.get(mother) != null){
+			Person mothers = familytree.get(mother);
+			familytree.get(firstName).setMother(mothers);
+		}
+		else  {mum = new Person(mother);
+		familytree.get(firstName).setMother(mum);
+		familytree.put(mother,  mum);
+		}
+		
+		Person dad = null;
+		if (familytree.get(father) != null){
+			Person fathers = familytree.get(father);
+			familytree.get(father).setFather(fathers);
+		}
+		else  {dad = new Person(father);
+		familytree.get(firstName).setFather(dad);
+		familytree.put(father, dad);
+		}
+		
+		System.out.println(firstName + " has been UPDATED in the Family Tree\n\n");
+		// add children and siblings and persons
+		allPersons();
+		addChildren();
+		addSiblings();
+	}
+	
+	
+	
 	
 	/**
 	 *@param allPersons Total Users on File
