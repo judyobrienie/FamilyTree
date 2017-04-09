@@ -23,6 +23,7 @@ public class Main {
 
 
 	private static Scanner input = new Scanner(System.in);
+	private static String String;
 
 	
 	public static void main(String[] args) throws Exception {
@@ -57,8 +58,12 @@ public class Main {
 				switch (option)
 				{
 				case 1:
+					f.min();
+					//f.allPersons();
+					String root = "Johanna";
+					Person person = f.familytree.get(root);
 					
-					f.allPersons();
+					f.printTree(person, "indent " );
 					
 					break;
 				case 2:
@@ -157,7 +162,12 @@ public class Main {
 					input.nextLine(); //swallow bug
 					String removeName = input.nextLine();
 					f.familytree.remove(removeName);
+					f.allPersons();
+					f.addChildren();
+					f.addSiblings();
 					break;
+					
+				
 				    
 				default:    System.out.println("Invalid option entered: " + option);
 				mainMenu();
@@ -203,6 +213,7 @@ private static  int mainMenu() {
     System.out.println("4)Print Children & Siblings");
     System.out.println("5)Update a Person");
     System.out.println("6)Remove a Person");
+    
 	
 
 

@@ -4,11 +4,14 @@ package controllors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
 import java.util.Scanner;
 import java.util.TreeMap;
-
 import utils.Serializer;
 
 
@@ -18,9 +21,9 @@ public class FamilyTreeAPI  {
 	private Serializer serializer;
 
     public Map<String, Person> familytree = new TreeMap<>();
+    List<Person> copy = new ArrayList<Person>();
     
-   //creating an instance of node
-    Node node  = new Node();
+   
 
     public FamilyTreeAPI(Serializer serializer)throws Exception {
 
@@ -66,7 +69,7 @@ public class FamilyTreeAPI  {
 
 		File usersFile = new File("../FamilyTree/familytree.txt");
 		Scanner inUsers = new Scanner(usersFile);
-		String delims = " ";//each field in the file is separated(delimited) by a space.
+		String delims = "[ ]" ;//each field in the file is separated(delimited) by a space.
 		while (inUsers.hasNextLine()) {
 			// get name and meaning from data source
 			String userDetails = inUsers.nextLine();
@@ -82,7 +85,7 @@ public class FamilyTreeAPI  {
 			
 		}
 			 inUsers.close();
-			 System.out.println(familytree);
+			 //System.out.println(familytree);
 		
 		//traversing the file a second time to add parents
 		Scanner inUser = new Scanner(usersFile);
@@ -96,6 +99,7 @@ public class FamilyTreeAPI  {
 			String[] userToken = userDetail.split(delims);
 			String motherTemp = userToken[3];
 			String fatherTemp = userToken[4];
+			String spouseTemp = userToken[5];
 			
 			//Check to see if mum or dad are already an object of type person if not create one
 			Person mum = null;
@@ -118,6 +122,15 @@ public class FamilyTreeAPI  {
 			familytree.put(fatherTemp, dad);
 			}
 			
+			Person sp = null;
+			if (familytree.get(spouseTemp) != null){
+				Person spouse = familytree.get(spouseTemp);
+				familytree.get(userToken[0]).setSpouse(spouse);
+			}
+			else  {sp = new Person(spouseTemp);
+			familytree.get(userToken[0]).setSpouse(sp);
+			familytree.put(spouseTemp, sp);
+			}
 			
 		}
 		inUser.close();
@@ -135,9 +148,20 @@ public class FamilyTreeAPI  {
 
 	public void addPerson(String firstName,String gender, int age, String mother, String father) {
 		
+		if(familytree.containsKey(firstName)){
+			System.err.println("Person with That Name Already Exists \nAdding a _1 to name \nPlease ensure you use _1 to reference correct family members");
+			firstName = firstName + "_1";
+			
+			Person person1 = new Person (firstName, gender, age);
+			familytree.put(firstName,  person1);
+		}
+		else
+		{
+		
 		Person person = new Person (firstName, gender, age);
 		familytree.put(firstName,  person);
 		
+		}
 		
 		Person mum = null;
 		if (familytree.get(mother) != null){
@@ -159,7 +183,7 @@ public class FamilyTreeAPI  {
 		familytree.put(father, dad);
 		}
 		
-		System.out.println(person + " has been added to Family Tree\n\n");
+		System.out.println("Added to Family Tree\n\n");
 		// add children and siblings and persons
 		allPersons();
 		addChildren();
@@ -218,7 +242,7 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 			String key = iterator.next();
 			Person value = familytree.get(key);
 
-			System.out.println("Person  :  " + value);
+			System.out.println("Family Member  :  " + value);
 		}
 	}//end of allPersons
 	
@@ -332,8 +356,78 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 		}
 	}//end of printChildren
 
+
+ 
+ public void  min() {
+	 
+	 
+	 Iterator<String> name= familytree.keySet().iterator();
+		while (name.hasNext()) {
+			String key = name.next();
+			Person value = familytree.get(key);
+	 
+			copy.add(value);
+		}
+	 Collections.sort(copy);
+	 System.out.println("Family Members in Decencing Order ");
+	 System.out.println(copy.toString());
 	
+	 for(int i=0; i< copy.size(); i++){
+		 if(copy.get(i).dob != 0){
+	 System.out.println(copy.get(i));
+	 }
+		 
+	 }
+ 	}
 	
+ 
+ public void printTree()
+
+ {
+	 
+     for(int j = 0; j < copy.size(); j++){
+     System.out.println(copy.get(j));
+     System.out.println("  Children of  " + copy.get(j).name + " = " + copy.get(j).getChildren().toString());
+     List<Person> temp = new ArrayList<Person>(copy.get(j).getChildren());
+     
+     for(int i= 0; i < temp.size() ; i++){
+    	 //if(temp.get(i).getChildren() != null)
+     System.out.println("           Children of  " + temp.get(i).name + " = " + temp.get(i).getChildren().toString());
+    	 
+     List<Person> temp2 = new ArrayList<Person>(temp.get(i).getChildren());
+     
+     for(int m= 0; m < temp2.size(); m++){
+    	// if(temp2.get(m).getChildren() != null)
+         System.out.println("                          Children of  " + temp2.get(m).name + " = " + temp2.get(m).getChildren().toString());
+    	 
+     }
+ }}
+ }
+ 
+ 
+ 
+ 
+ public void printTree(Person person, String indent)
+
+ {    
+     if(person == null)
+
+         return;
+
+	
+     System.out.println(" "+ person.toString());
+    
+
+     System.out.println("  " +indent + "     Children of  " + person + " = " + person.getChildren().toString());
+     List<Person> temp = new ArrayList<Person>(person.getChildren());
+     
+     for(int i= 0; i < temp.size() ; i++){
+    	 if(temp.get(i).getChildren() != null){
+    printTree( temp.get(i),indent+"        " );
+    	 }
+     }
+ 
+ }
 } //end of FamilyTreeApi
 
 
