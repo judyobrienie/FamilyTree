@@ -356,7 +356,12 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 		}
 	}//end of printChildren
 
-
+ 
+ /**
+	 *@param Print array of Persons in decending order 
+	 *@return A list of All Persons 
+	 */
+	 	
  
  public void  min() {
 	 
@@ -365,8 +370,10 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 		while (name.hasNext()) {
 			String key = name.next();
 			Person value = familytree.get(key);
-	 
+	//if arraylist already contains object do not add
+	 if(!copy.contains(value)){
 			copy.add(value);
+	 }
 		}
 	 Collections.sort(copy);
 	 System.out.println("Family Members in Decencing Order ");
@@ -380,6 +387,13 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 	 }
  	}
 	
+ 
+ 
+ /**
+	 *@param Print Tree
+	 *@return A list of All Persons showing relationships
+	 */
+	 	
  
  public void printTree()
 
@@ -407,6 +421,8 @@ public void updatePerson(String firstName,String gender, int age, String mother,
  
  
  
+ 
+ 
  public void printTree(Person person, String indent)
 
  {    
@@ -415,8 +431,7 @@ public void updatePerson(String firstName,String gender, int age, String mother,
          return;
 
 	
-     System.out.println(" "+ person.toString());
-    
+    // System.out.println(" "+ person.toString());
 
      System.out.println("  " +indent + "     Children of  " + person + " = " + person.getChildren().toString());
      List<Person> temp = new ArrayList<Person>(person.getChildren());
@@ -428,6 +443,40 @@ public void updatePerson(String firstName,String gender, int age, String mother,
      }
  
  }
+ 
+ /**
+  * Printing Family tree, calling recursive call on printTree() and also
+  * printing their spouses Tree
+  * @param person
+  */
+ 
+ 
+ public void printTree2(Person person)
+ {
+	 System.err.println("Family Tree of :" + person + " Spouse : " + person.getSpouse());
+    
+	System.out.println("===============================================");
+	System.out.println("===============================================");
+	
+	printTree(person,  "indent ");
+	
+	Person spouse = person.getSpouse();
+	
+	System.out.println("Family Tree of  Spouse : " + person.getSpouse());
+	printTree(spouse, "indent ");
+	
+	
+	System.err.println("\n\nMother :" + person.getMother() + " Father : " + person.getFather());
+	 
+	 //printTree(person.getMother(), "indent ");
+	 
+ }
+ 
+ 
+ 
+ 
+ 
+ 
 } //end of FamilyTreeApi
 
 

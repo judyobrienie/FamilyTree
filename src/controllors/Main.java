@@ -58,12 +58,19 @@ public class Main {
 				switch (option)
 				{
 				case 1:
+					
 					f.min();
 					//f.allPersons();
-					String root = "Johanna";
+					System.out.println("\n" + "Choose a Family Member to Print their Tree");
+					System.out.println("=======================");
+					System.out.println("==>>");
+					input.nextLine(); //swallow bug
+					String root = input.nextLine();
 					Person person = f.familytree.get(root);
 					
-					f.printTree(person, "indent " );
+					f.printTree2(person);
+					//f.printTree(person, "indent " );
+					//f.printTree();
 					
 					break;
 				case 2:
@@ -167,6 +174,27 @@ public class Main {
 					f.addSiblings();
 					break;
 					
+				case 7:
+					System.out.println("\n" + "Current List Of Persons");
+					System.out.println("=======================");
+					f.allPersons();
+					System.out.println("\n");
+					System.out.println("Choose a husband" + "\n");
+					System.out.println("==>>");
+					input.nextLine(); //swallow bug
+					String tempHusband = input.nextLine();
+					System.out.println("\n");
+					System.out.println("Choose a wife" + "\n");
+					System.out.println("==>>");
+					
+					String tempWife = input.nextLine();
+					Person wife = f.familytree.get(tempWife);
+					f.familytree.get(tempHusband).setSpouse(wife);
+					Person husband = f.familytree.get(tempHusband);
+					f.familytree.get(tempWife).setSpouse(husband);
+					System.out.println(husband + " & " + wife + " are now Married!");
+					break;
+					
 				
 				    
 				default:    System.out.println("Invalid option entered: " + option);
@@ -213,6 +241,7 @@ private static  int mainMenu() {
     System.out.println("4)Print Children & Siblings");
     System.out.println("5)Update a Person");
     System.out.println("6)Remove a Person");
+    System.out.println("7)Marry Two Persons");
     
 	
 

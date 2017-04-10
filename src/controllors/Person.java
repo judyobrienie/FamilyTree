@@ -14,13 +14,7 @@ public class Person implements Comparable<Person> {
 	public String gender;
 	public int dob;
 	public Person spouse = null;
-	public Person getSpouse() {
-		return spouse;
-	}
-
-	public void setSpouse(Person spouse) {
-		this.spouse = spouse;
-	}
+	
 
 	public Person mother = null;
 	public Person father= null;
@@ -89,7 +83,7 @@ public class Person implements Comparable<Person> {
 
 	@Override
 	public String toString() {
-		return name + ", " + dob  ;
+		return name + ", " + dob ;
 		
 	}
 
@@ -168,7 +162,13 @@ public class Person implements Comparable<Person> {
 		return null;
 	}
 
+	public Person getSpouse() {
+		return spouse;
+	}
 
+	public void setSpouse(Person spouse) {
+		this.spouse = spouse;
+	}
 
 	
 
