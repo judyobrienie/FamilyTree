@@ -376,15 +376,19 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 	 }
 		}
 	 Collections.sort(copy);
-	 System.out.println("Family Members in Decencing Order ");
-	 System.out.println(copy.toString());
+	 System.out.println("Family Members in From Oldest Down ");
+	 //System.out.println(copy.toString());
 	
 	 for(int i=0; i< copy.size(); i++){
 		 if(copy.get(i).dob != 0){
 	 System.out.println(copy.get(i));
+	 
 	 }
 		 
+		 
 	 }
+	 System.out.println("\nFamily Members Including those with Age = Null\n");
+	 System.out.println(copy.toString());
  	}
 	
  
@@ -466,7 +470,7 @@ public void updatePerson(String firstName,String gender, int age, String mother,
 	printTree(spouse, "indent ");
 	
 	
-	System.err.println("\n\nMother :" + person.getMother() + " Father : " + person.getFather());
+	System.err.println("\n\nMother of "+ person + " :" + person.getMother() + " Father : " + person.getFather());
 	 
 	 //printTree(person.getMother(), "indent ");
 	 

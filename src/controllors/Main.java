@@ -1,6 +1,16 @@
 package controllors;
 
-
+/**
+ * This is the main class that uses console i/o to interact with the user.  
+ * It creates  an instance of FamilyTreeAPI with a serialiser to read in files in once from files ,saves them to an xml file and from there on uses file to add ongoing data.
+ * 
+ * 
+ * Known Bugs: When printing family tree, it can sometimes print out of sequence depending on run time
+ * 
+ * 
+ * @author Judy O'Brien
+ * @version 1
+ */
 
 import java.io.File;
 import java.util.Iterator;
@@ -61,7 +71,7 @@ public class Main {
 					
 					f.min();
 					//f.allPersons();
-					System.out.println("\n" + "Choose a Family Member to Print their Tree");
+					System.out.println("\n" + "Enter First Name of Family Member to Print their Tree");
 					System.out.println("=======================");
 					System.out.println("==>>");
 					input.nextLine(); //swallow bug
@@ -74,7 +84,7 @@ public class Main {
 					
 					break;
 				case 2:
-					System.out.println("Enter the Name: ");
+					System.out.println("Enter their first Name: ");
 					input.nextLine(); //swallow bug
 					String temp = input.next();
 					System.out.println("Answer From TreeMap =     " +  f.familytree.get(temp));
@@ -124,7 +134,7 @@ public class Main {
 					System.out.println("=======================");
 					f.allPersons();
 					System.out.println("\n");
-					System.out.println("Choose a Person to Update" + "\n");
+					System.out.println("Enter First Name of the Person to Update" + "\n");
 					System.out.println("==>>");
 					input.nextLine(); //swallow bug
 					String firstName1 = input.nextLine();
@@ -235,7 +245,7 @@ public class Main {
  */
 
 private static  int mainMenu() {
-	System.out.println("\n1)Print out Tree");
+	System.out.println("\n1)Choose a Person to Print out their Tree");
 	System.out.println("2)Search for a Person");
 	System.out.println("3)Add a Person");
     System.out.println("4)Print Children & Siblings");
